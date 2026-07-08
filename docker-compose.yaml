@@ -7,7 +7,14 @@ services:
     container_name: ai-dashboard
 
     restart: always
+    read_only: true
 
+    tmpfs:
+    - /tmp
+
+    security_opt:
+    - no-new-privileges:true
+    
     env_file:
       - .env
 
