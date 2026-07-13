@@ -1,7 +1,5 @@
 import logging
-import os
-
-os.makedirs("logs", exist_ok=True)
+import sys
 
 logger = logging.getLogger("ai-dashboard")
 logger.setLevel(logging.INFO)
@@ -11,11 +9,8 @@ if not logger.handlers:
         "%(asctime)s | %(levelname)s | %(message)s"
     )
 
-    file_handler = logging.FileHandler("logs/app.log")
-    file_handler.setFormatter(formatter)
-
-    console_handler = logging.StreamHandler()
+    # Log only to console (Docker captures stdout/stderr)
+    console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setFormatter(formatter)
 
-    logger.addHandler(file_handler)
     logger.addHandler(console_handler)
